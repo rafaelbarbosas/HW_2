@@ -11,9 +11,11 @@
   %tbody
     - @movies.each do |movie|
       %tr
-        %td= movie.title 
+        %td= link_to "#{movie.title}", :controller => "movies",
+          :action => "index", :sortBy => "title", :title_reader => movie.id
         %td= movie.rating
-        %td= movie.release_date
+        %td= link_to "#{movie.release_date}", :controller => "movies", :action => "index",
+          :sortBy => "release_date", :release_date_reader => movie.id
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
