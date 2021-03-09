@@ -1,10 +1,17 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
-    if params[:sortBy].nil?
-      @movies = Movie.all
+
+    if params[:ratings].nil?
+      @active_ratings = Movie.all_ratings
     else
-      @movies = Movie.order("#{params[:sortBy]} ASC")
+      @active_ratings = params[:ratings].keys
+    end
+
+    if params[:sortBy].nil?
+      @movies = Movie.where(rating: @active_ratings)
+    else
+      @movies = Movie.where(rating: @active_ratings).order("#{params[:sortBy]} ASC")
     end
   end
 
